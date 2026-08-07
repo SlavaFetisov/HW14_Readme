@@ -5,20 +5,14 @@ public class TestData {
     public static final String BASE_URL = "https://tuningcentr.ru/";
     public static final String CATS_URL = "/cats";
     public static final String[] KATALOG_ITEMS = {
-            "Автосигнализации",
-            "Шумоизоляция",
-            "Предпусковые подогреватели двигателя",
-            "Тонировочные плёнки",
-            "Системы видеоконтроля",
-            "Парктроники / камеры заднего вида",
-            "Освещение",
-            "Автозвук",
-            "Фаркопы",
-            "Доводчики дверей",
-            "OFFROAD",
-            "Автоаксессуары",
+            "Каталог",
+            "Услуги",
+            "Цены",
+            "Компания",
+            "Фотогалерея",
+            "Контакты",
     };
-    public static final int KATALOG_SIZE = 12;
+    public static final int KATALOG_SIZE = 6;
     public static final String[] PROCHEE_ITEMS = {
             "ПОДАРОЧНАЯ КАРТА",
             "ДЛЯ ЛЮДЕЙ",

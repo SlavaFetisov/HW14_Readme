@@ -1,20 +1,23 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TuningcentrPage {
 
-    private final SelenideElement katalog = $("[dropdown-toggle menu-catalog]");
+    private final SelenideElement katalog = $("[dropdown-toggle ]");
     private final SelenideElement procheeMenu = $("[data-menu-submenu-hook='"
             + testdata.TestData.MENU_PROCHEE + "']");
     private final SelenideElement infoMenu = $("[data-menu-submenu-hook='"
             + testdata.TestData.MENU_INFO + "']");
-    private final ElementsCollection dropdownItems = $$(".t-menusub__menu_show .t-menusub__list-item");
+    private final ElementsCollection dropdownItems = $$(".dropdown-submenu a[tabindex='-1'].parent");
     private final ElementsCollection dropdownLinks = $$(".t-menusub__menu_show .t-menusub__link-item");
     private final ElementsCollection products = $$(".js-product");
     private final SelenideElement productSku = $(".t-store__prod-popup__sku");
