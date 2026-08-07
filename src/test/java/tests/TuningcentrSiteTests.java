@@ -3,50 +3,34 @@ package tests;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tests.testdata.TestDataPracticeForm;
+import testdata.TestData;
+import pages.TuningcentrPage;
 
 import static io.qameta.allure.Allure.step;
 
-@Story("Registration form")
-public class PracticeFormTests extends TestBase {
-    TestDataPracticeForm testData = new TestDataPracticeForm();
+@Story("Website https://tuningcentr.ru/")
+public class TuningcentrSiteTests extends TestBase {
+
+    TuningcentrPage tuningcentrPage = new TuningcentrPage();
 
     @Test
-    @DisplayName("Successfull form submit")
-    void successfulFormCompletionTest() {
-        step("Open registration page", () ->
-                practiceFormPage.openPage()
+    @DisplayName("Проверка каталога услуг")
+    void shouldCheckDropdownMenu() {
+        step("Открыть главную страницу", () ->
+                tuningcentrPage.openPage()
         );
-        step("Filling all form fields", () ->{
-            practiceFormPage.bannerClose()
-                    .checkSubtitle(testData.subtitleText)
-                    .typeFirstName(testData.firstName)
-                    .typeLastName(testData.secondName)
-                    .typeEmail(testData.userEmail)
-                    .selectGender(testData.genderTextValue)
-                    .typeNumber(testData.userNumber)
-                    .setDateOfBirth(testData.dateDay, testData.dateMonth, testData.dateYear)
-                    .selectSubject(testData.subject)
-                    .selectHobbie(testData.hobbie)
-                    .uploadPicture(testData.uploadPicture)
-                    .typeCurrentAddress(testData.currentAddress)
-                    .selectState(testData.state)
-                    .selectCity(testData.city)
-                    .submitForm();
-        });
-        step("Check results", () -> {
-            resultModalComponent.checkResultModalAppearance()
-                    .checkResultModalTitle(testData.successSubmitText)
-                    .checkResultField("Student Name", testData.firstName + " " + testData.secondName)
-                    .checkResultField("Student Email", testData.userEmail)
-                    .checkResultField("Gender", testData.genderTextValue)
-//                .checkResultField("Date of Birth", testData.dateOfBirth)
-                    .checkResultField("Subjects", testData.subject)
-                    .checkResultField("Hobbies", testData.hobbie)
-                    .checkResultField("Picture", testData.uploadPicture)
-                    .checkResultField("Address", testData.currentAddress)
-                    .checkResultField("State and City", testData.state + " " + testData.city);
-        });
+
+        step("Навести на каталог", () ->
+                tuningcentrPage.hoverkatalog()
+        );
+
+        step("Проверить количество пунктов", () ->
+                tuningcentrPage.checkDropdownSize(TestData.KATALOG_SIZE)
+        );
+
+        step("Проверить названия пунктов", () ->
+                tuningcentrPage.checkDropdownTexts(TestData.KATALOG_ITEMS)
+        );
     }
 
     @Test

@@ -7,11 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import pages.PracticeFormPage;
-import pages.TextBoxPage;
-import pages.components.ResultModalComponent;
 import helpers.Attach;
-import tests.secrets.Secrets;
 
 import java.util.Map;
 
@@ -20,26 +16,29 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    PracticeFormPage practiceFormPage = new PracticeFormPage();
-    ResultModalComponent resultModalComponent = new ResultModalComponent();
-    TextBoxPage textBoxPage = new TextBoxPage();
-
     @BeforeAll
-    static void setupSelenideEnv(){
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://qa-guru.github.io/one-page-form";
-        Configuration.browserVersion = "149.0";
-        Configuration.browser = "chrome";
-        Configuration.timeout = 5000; // default 4000
-        Configuration.remote = Secrets.remoteBrowserUrl;
+    static void setupSelenideEnv() {
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browserVersion", "150.0");
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://tuningcentr.ru/");
+        Configuration.timeout = 15000;
+        Configuration.pageLoadTimeout = 60000;
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.of(
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
-                "enableVideo", true
-        ));
+                "enableVideo", true));
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = Secrets.remoteBrowserUrl;
+        Configuration.remote = "https://" +
+                System.getProperty("remoteBrowserUrlLogin") +
+                ":" +
+                System.getProperty("remoteBrowserUrlPassword") +
+                "@" +
+                System.getProperty("remoteBrowserUrl", "selenoid.autotests.cloud/wd/hub");
     }
+
 
     @BeforeEach
     void beforeEachTest() {
