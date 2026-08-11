@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import helpers.Attach;
+import pages.OpenWeatherPage;
 
 import java.util.Map;
 
@@ -16,13 +17,15 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
+    OpenWeatherPage openWeatherPage = new OpenWeatherPage();
+
     @BeforeAll
     static void setupSelenideEnv() {
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("browserVersion", "150.0");
+        Configuration.browserVersion = System.getProperty("browserVersion", "151.0");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
-        Configuration.baseUrl = System.getProperty("baseUrl", "https://tuningcentr.ru/");
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://openweathermap.org");
         Configuration.timeout = 15000;
         Configuration.pageLoadTimeout = 60000;
 

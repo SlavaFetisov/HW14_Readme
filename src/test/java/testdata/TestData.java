@@ -2,7 +2,7 @@ package testdata;
 
 public class TestData {
 
-    public static final String BASE_URL = "https://tuningcentr.ru/";
+    public static final String BASE_URL = "https://openweathermap.org/";
     public static final String CATS_URL = "/cats";
     public static final String[] KATALOG_ITEMS = {
             "Каталог",
